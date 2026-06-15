@@ -1,52 +1,85 @@
-# Course07 Bank Project & C++ Utility Toolbox
-🏦 Bank Management System (Course 07)
+# 🏦 Comprehensive Bank Management System & Extensions
 
-This repository contains the core capstone banking system implemented as part of **Course 07 (C++ Level 2)** within the professional software development roadmap provided by **ProgrammingAdvices**. 
+A multi-phase **Bank Management System** developed as the capstone graduation projects within the C++ software engineering roadmap (Course 07: C++ Level 2 & Course 08: Algorithms & Data Structures Level 2) provided by **`ProgrammingAdvices`**.
 
-## 💎 Core Features & Architecture
+The repository transitions seamlessly from a fundamental single-user transaction driver into an enterprise-grade console system integrated with strict user authentication, an immutable log system, and an algorithmic utility stack.
 
-The application is structured into a modular layout split between a state-driven Console UI engine, a dedicated Transactions Menu subsystem, and heavily customized backend logic libraries.
+## 🌿 Repository Architecture & Branch Evolution
 
-1. **Main Management Menu**: Full CRUD subsystem allowing real-time actions:
-   * View full structured clients records table.
-   * Securely add new account holders.
-   * Account eviction/deletion by unique Account Number.
-   * Dynamic account updates.
-   * Search and view detailed client profile cards.
-2. **Dedicated Transactions Menu Subsystem**:
-   * **Safe Deposits**: Real-time balance augmentation with automated ledger persistence.
-   * **Fail-Safe Withdrawals**: Business logic validation preventing overdrafts by comparing requested amounts against the existing `AccountBalance`.
-   * **Total Balances Accounting**: Algorithmic lookup tracking and summing total net liquidity held inside the bank registry.
-3. **Robust Backend Driver**: Driven by strongly-typed `Enums` mapping application routing state, utilizing references to optimized `std::vector<stClientData>` to maintain high in-memory performance before syncing commits back to `Clients.txt`.
+To inspect the development milestones, you can navigate across the following Git branches:
 
-## 🛠️ Project Structure & Custom Libraries Overview
+- **`main` / `Course07-Base`**: Contains the foundational financial ledger with client CRUD operations and core transaction handling.
+    
+- **`Bank-Extension-v1` (Current Branch)**: Implements advanced features from Course 08, adding employee management, user access control gates, and audit trails within the same core execution structure.
+    
 
-* **Main Execution Engine**: `Course07BankManagementSystem.cpp` implements the centralized control loop (`ShowMainMenuScreen` and `ShowTransactionsMenuScreen`), processing options using custom input ranges.
-* **Customized Library Stack**:
-  * `MyBankDataLib.h`: Custom record parsing, standard layout alignment, and direct disk file synchronization.
-  * `MyInputLib.h`: Custom numeric range validation (`ReadNumberInRange`) guarding input interfaces against invalid data entry or software crashes.
-  * `MyStringLib.h`: Optimized string operations utilizing safe right/left parsing boundaries.
- 
----
+## 💎 Key Subsystems & Upgrades
 
-## 🔒 Database & Data Privacy Notice
+### 1. Security & Identity Management (Course 08 Extension)
 
-* **`Clients.txt` Usage**: The included `Clients.txt` file serves exclusively as a **mock database containing simulated client records, arbitrary account numbers, and testing balances**. 
-* No real-world financial credentials, personal identifiable information (PII), or actual banking data are stored within this repository. 
-* This localized flat-file registry is structured solely to verify file I/O operations, record-parsing logic, and transactions engine stress-testing during the initial developmental phases.
----
+- **Granular Permissions Matrix**: Access controls calculated via a user permissions integer, blocking unauthorized employees from accessing management profiles or financial utilities.
+    
+- **System Audit Trail**: Fully automated logging system capturing every authorization event to `LoginRegister.txt` (Tracks: `Timestamp`, `Username`, `Password`, `Permissions Mask`).
+    
+- **Built-in Testing Credentials**:
+    
+    - **Username:** `Admin`
+        
+    - **Password:** `1234`
+        
 
-## 🚀 Getting Started & Compilation
+### 2. Core Ledger & Financial Subsystem (Course 07 Foundation)
+
+- **Client Record Lifecycle**: Full CRUD operations parsing delimited database layouts directly into active memory vectors (`std::vector<stClientData>`).
+    
+- **Fail-Safe Transactions**: Multi-tier balance manipulation verifying ledger liquidity to strictly block illegal overdraft operations during dynamic withdrawals.
+    
+
+## 📂 Repository Structure & Toolbox Layout
+
+The project features a flat architecture in its root directory, isolating logical subsystems into customized header toolboxes:
+
+Plaintext
+
+```
+.
+├── Course07BankManagementSystem.cpp  # Central Execution Engine & Routing System
+├── Clients.txt                       # Flat-file database for simulated client records
+├── Users.txt                         # Secure local user credentials and permissions data
+├── MyBankDataLib.h                   # Specialized file I/O operations and parsing logic
+├── MyInputLib.h                      # Input stream defense and numeric range boundary validation
+├── MyStringLib.h                     # String tokenization and custom parsing logic
+├── MyDateLib.h                       # Date management algorithms and calculations
+├── MyArrayLib.h                      # Low-level array manipulation algorithms
+├── MyMathLib.h                       # Math utility operations
+├── MyUtilityLib.h                    # General-purpose program enhancement tools
+├── MyVectorLib.h                     # Custom vector utility stack
+└── Course07BanckProject.sln          # Central Visual Studio Solution File
+```
+
+## 🔒 Simulated Database & Security Compliance
+
+- **Data Isolation**: Files like `Clients.txt` and `Users.txt` function strictly as local mock databases using custom field layout delimiters (`#//#`).
+    
+- No real financial credentials, actual banking numbers, or production-grade Personal Identifiable Information (PII) are processed or stored.
+    
+
+## 🚀 Build, Compilation & Execution
 
 ### Prerequisites
-Ensure you have a modern C++ compiler supporting at least **C++17** (e.g., GCC/MinGW, MSVC, Clang).
 
-### Manual CLI Compilation
-To build and run the executable using the Windows PowerShell environment with GCC, execute the following from the repository root directory:
+A compiler implementing the **C++17 standard** or later (GCC/MinGW, MSVC via Visual Studio).
 
-```bash
-# Compile the executable with C++17 standard enabled targeting the current directory include paths
+### Native CLI Compilation
+
+To build and compile the system manually using the standard GCC toolchain from your terminal, execute the following from the root directory:
+
+Bash
+
+```
+# Compile using C++17 standard
 g++ -std=c++17 Course07BankManagementSystem.cpp -I . -o Course07Bank.exe
 
-# Run the compiled binary on Windows
+# Launch the executable binary
 .\Course07Bank.exe
+```
