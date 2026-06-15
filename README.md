@@ -4,18 +4,16 @@ A comprehensive, production-grade C++ banking management system and utility tool
 
 ---
 
-## 🛠️ Project Structure & Architectural Overview
+## 🛠️ Project Structure & Custom Libraries Overview
 
-The repository is organized as a lightweight flat structure for header-only distribution, targeting rapid integration and test verification:
+Unlike standard header implementations, this repository is powered by a suite of **custom-built and heavily modified libraries** designed to extend core C++ functionalities, resolve procedural bugs, and optimize banking business logic:
 
-* **Core Application**: `ConsoleApplication3.cpp` serves as the main execution engine managing the Bank Management System console workflow.
-* **Bank Subsystem**: `MyBankDataLib.h` handles account records parsing, data streaming, file persistence, and data schema logic utilizing `Clients.txt`.
-* **Utility Stack**: A collection of decoupled, header-only helper modules targeting specialized domains:
-  * `MyInputLib.h` / `myCpp5AllFuncLib.h`: Advanced, fail-safe console input validations and primitive operations.
-  * `MyMathLib.h`: Highly-optimized arithmetic algorithms and mathematical computations.
-  * `MyArrayLib.h` & `MyVectorLib.h`: Custom, memory-safe wrappers for arrays and dynamic arrays processing.
-  * `MyStringLib.h` & `MyUtilityLib.h`: Optimized string sanitization, parsing, formatting, and general programmatic toolsets.
-
+* **Core Application**: `ConsoleApplication3.cpp` manages the runtime execution and the primary user experience loop for the Bank Management System.
+* **Customized Library Stack**:
+  * `MyBankDataLib.h`: Custom data-streaming and record-parsing engine managing account serialization with `Clients.txt`.
+  * `MyInputLib.h` / `myCpp5AllFuncLib.h`: Deeply refactored, fail-safe validation libraries ensuring robust stream-clearing and type-safe user inputs.
+  * `MyStringLib.h`: Enhanced string-manipulation workspace featuring custom-engineered `Trim` algorithms (handling edge cases for empty/space-only buffers).
+  * `MyMathLib.h`, `MyArrayLib.h`, `MyVectorLib.h`, `MyUtilityLib.h`: Optimized logical modules tailored to accelerate mathematical computations and memory-safe container wrappers.
 ---
 
 ## 🚀 Getting Started & Compilation
