@@ -14,6 +14,13 @@ namespace MyStringLib
 		getline(cin, s1);
 		return s1;
 	}
+	string ReadString(string Message)
+	{
+		string s1;
+		cout << Message;
+		getline(cin, s1);
+		return s1;
+	}
 	char ReadChar()
 	{
 		char Ch1;
@@ -313,7 +320,6 @@ namespace MyStringLib
 				return S1.substr(0, i + 1); // اقطع من الصفر لحد المكان ده
 			}
 		}
-		return "";
 	}
 	string Trim(string S1)
 	{
@@ -409,9 +415,9 @@ namespace MyStringLib
 		return s1;
 	}
 
-	string ReplaceStringUsingIterator(string s1, string OldWord, string updateTo, bool matchCase = true)
+	string ReplaceStringUsingIterator(string s1, string OldWord, string updateTo,string Separator = " ", bool matchCase = true)
 	{
-		vector<string> vString = SplitString(s1, " ");
+		vector<string> vString = SplitString(s1, Separator);
 		vector<string>::iterator iter;
 		for (iter = vString.begin(); iter != vString.end(); iter++)
 		{
@@ -425,11 +431,11 @@ namespace MyStringLib
 			}
 		}
 
-		return JoinString(vString, " ");
+		return JoinString(vString, Separator);
 	}
-	string ReplaceStringUsingSplit(string s1, string OldWord, string updateTo, bool matchCase = true)
+	string ReplaceStringUsingSplit(string s1, string OldWord, string updateTo, string Separator = " ", bool matchCase = true)
 	{
-		vector <string >vString = SplitString(s1, " ");
+		vector <string >vString = SplitString(s1, Separator);
 		for (string& s : vString)
 		{
 			if (matchCase)
@@ -441,7 +447,7 @@ namespace MyStringLib
 				if (lowerAllString(s) == lowerAllString(OldWord)) s = updateTo;
 			}
 		}
-		return JoinString(vString, " ");
+		return JoinString(vString, Separator);
 	}
 
 	string RemoveAllPunctuationsAndPutSpace(string s1)
@@ -462,6 +468,5 @@ namespace MyStringLib
 		}
 		return s2;
 	}
-
 
 };

@@ -1,9 +1,12 @@
 ﻿#pragma once
 #pragma warning(disable : 4996)
 
+
 #include <ctime>
 #include <iostream>
 #include <string>
+#include <vector>
+
 using namespace std;
 
 namespace MyUtilityLib 
@@ -79,6 +82,149 @@ namespace MyUtilityLib
             cout << Feb << "  ";
         }
     }
+
+    
+string ConvertNumberToText(unsigned long long Number)
+{
+    // متنساش تستخدم unsigned long long ReadLongPositiveNumber()
+    if (Number == 0) return "";
+
+    if (Number >= 1 && Number < 20)
+    {
+        string arr[]{
+            "","One","Two","Three","Four","Five","Six","Seven",
+            "Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen",
+            "Fifteen","Sixteen","Seventeen","Eighteen","Nineteen" };
+        return arr[Number];
+    }
+
+    if (Number >= 20 && Number < 100)
+    {
+        string arr[]{
+            "","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety" };
+        return arr[Number / 10] + (Number % 10 != 0 ? " " + ConvertNumberToText(Number % 10) : "");
+    }
+
+    if (Number >= 100 && Number < 1000)
+    {
+        return ConvertNumberToText(Number / 100) + " Hundred" + (Number % 100 != 0 ? " " + ConvertNumberToText(Number % 100) : "");
+    }
+
+    // Thousands: 1,000 to 999,999
+    if (Number >= 1'000ULL && Number < 1'000'000ULL) //(unsigned long long)1000000
+    {
+        return ConvertNumberToText(Number / 1'000ULL) + " Thousand" + (Number % 1'000ULL != 0 ? " " + ConvertNumberToText(Number % 1'000ULL) : "");
+    }
+
+    // Millions: 1,000,000 to 999,999,999
+    if (Number >= 1'000'000ULL && Number < 1'000'000'000ULL)
+    {
+        // Or: if (Number >= (unsigned long long)1e6 && Number < (unsigned long long)1e9)
+        return ConvertNumberToText(Number / 1'000'000ULL) + " Million" + (Number % 1'000'000ULL != 0 ? " " + ConvertNumberToText(Number % 1'000'000ULL) : "");
+    }
+
+    // Billions: 1,000,000,000 to 999,999,999,999
+    if (Number >= 1'000'000'000ULL && Number < 1'000'000'000'000ULL)
+    {
+        return ConvertNumberToText(Number / 1'000'000'000ULL) + " Billion" + (Number % 1'000'000'000ULL != 0 ? " " + ConvertNumberToText(Number % 1'000'000'000ULL) : "");
+    }
+
+    // Trillions: 1,000,000,000,000 to 999,999,999,999,999
+    if (Number >= 1'000'000'000'000ULL && Number < 1'000'000'000'000'000ULL)
+    {
+        return ConvertNumberToText(Number / 1'000'000'000'000ULL) + " Trillion" + (Number % 1'000'000'000'000ULL != 0 ? " " + ConvertNumberToText(Number % 1'000'000'000'000ULL) : "");
+    }
+
+    // Quadrillions: 1,000,000,000,000,000 to 999,999,999,999,999,999
+    if (Number >= 1'000'000'000'000'000ULL && Number < 1'000'000'000'000'000'000ULL)
+    {
+        return ConvertNumberToText(Number / 1'000'000'000'000'000ULL) + " Quadrillion" + (Number % 1'000'000'000'000'000ULL != 0 ? " " + ConvertNumberToText(Number % 1'000'000'000'000'000ULL) : "");
+    }
+
+    // Quintillions: 1,000,000,000,000,000,000 to 9,223,372,036,854,775,807 
+   // unsigned long long int RealMaxNumber = 18'446'744'073'709'551'615ULL;
+    if (Number >= 1'000'000'000'000'000'000ULL && Number <= 18'446'744'073'709'551'615ULL)
+    {
+        return ConvertNumberToText(Number / 1'000'000'000'000'000'000ULL) + " Quintillion" + (Number % 1'000'000'000'000'000'000ULL != 0 ? " " + ConvertNumberToText(Number % 1'000'000'000'000'000'000ULL) : "");
+    }
+
+    return "Out of range...";
+}
+struct NumberScale
+{
+    unsigned long long Value;
+    string Name;
+};
+string ConvertNumberToTextUsingVectors(unsigned long long Number)
+{
+    // متنساش تستخدم unsigned long long ReadUnsignedLongPositiveNumber()
+   // if (Number == 0) return "";
+
+    if (Number > 0 && Number < 20)
+    {
+        const   string arr[]{
+               "","One","Two","Three","Four","Five","Six","Seven",
+               "Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen",
+               "Fifteen","Sixteen","Seventeen","Eighteen","Nineteen" };
+        return arr[Number];
+    }
+
+    if (Number >= 20 && Number < 100)
+    {
+        const string arr[]{
+              "","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety" };
+        return arr[Number / 10] + (Number % 10 != 0 ? " " + ConvertNumberToTextUsingVectors(Number % 10) : "");
+    }
+
+    if (Number >= 100 && Number < 1000)
+    {
+        return ConvertNumberToTextUsingVectors(Number / 100) + " Hundred" + (Number % 100 != 0 ? " " + ConvertNumberToTextUsingVectors(Number % 100) : "");
+    }
+    if (Number == 0)
+        return "Zero";
+    const vector<NumberScale> Scales
+    {
+        //{(unsigned long long)1e3,"Thousand"},
+        {1'000'000'000'000'000'000ULL, "Quintillion"},
+        {1'000'000'000'000'000ULL,     "Quadrillion"},
+        {1'000'000'000'000ULL,         "Trillion"},
+        {1'000'000'000ULL,             "Billion"},
+        {1'000'000ULL,                 "Million"},
+        {1'000ULL,                     "Thousand"}
+        //لو اتكتبوا تصاعدي مش هيكتب اسم الفئة الخاصة بكل رقم
+        /*
+         {1'000ULL,"Thousand"},
+        {1'000'000ULL,"Million"},
+        {1'000'000'000ULL,"Billion"},
+        {1'000'000'000'000ULL,"Trillion"},
+        {1'000'000'000'000'000ULL,"Quadrillion"},
+        {1'000'000'000'000'000'000ULL,"Quintillion"} // كده غلط
+        */
+    };
+
+    for (const NumberScale& Scale : Scales)
+    {
+        if (Number >= Scale.Value)
+        {
+            return ConvertNumberToTextUsingVectors(Number / Scale.Value) + " " + Scale.Name + (Number % Scale.Value ? " " + ConvertNumberToTextUsingVectors(Number % Scale.Value) : "");
+        }
+    }
+    return "Out of range...";
+
+}
+
+string ConvertNumberTo1eNum(unsigned long long number)
+{
+    if (number == 0) return "Zero";
+    short count = 0;
+
+    while (number >= 10)
+    {
+        number /= 10;
+        count++;
+    }
+    return to_string(number) + "e" + to_string(count);
+}
 
 
 }

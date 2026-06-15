@@ -1,8 +1,8 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
-#include <limits>
+#include "MyStringLib.h"
 
 using namespace std;
 
@@ -39,7 +39,7 @@ namespace MyInputLib {
     }
 
     int ReadPositiveNumber(string Message) {
-        unsigned int Number = 0;
+         int Number = 0;
         do {
             cout << Message;
             cin >> Number;
@@ -54,11 +54,60 @@ namespace MyInputLib {
         } while (Number <= 0);
         return Number;
     }
+    unsigned long long ReadUnsignedLongPositiveNumber(bool isIncludeZero = false, string Message = "Please enter a number: ")
+    {
+        unsigned long long Number = 0;
+        string sNum = "";
 
-    int ReadNumberInRange(int From, int To, string Message = "Enter number: ") {
+        do {
+            cout << Message;
+
+            cin >> ws;
+            if (cin.peek() == '-')
+                cin.setstate(ios::failbit);
+            else
+                cin >> Number;
+
+
+            while (cin.fail()) // Validation
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                cout << "Invalid Number, Enter a valid one : ";
+                cin >> ws;
+                if (cin.peek() == '-')
+                    cin.setstate(ios::failbit);
+                else
+                    cin >> Number;
+            }
+        } while ((isIncludeZero ? (Number < 0) : (Number <= 0)));
+        return Number;
+    }
+    long long ReadLongPositiveNumber(bool isIncludeZero = false, string Message = "Please enter a number: ")
+    {
+        long long Number = 0;
+
+        do {
+            cout << Message;
+            cin >> Number;
+            while (cin.fail()) // Validation
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                cout << "Invalid Number, Enter a valid one : ";
+                cin >> Number;
+            }
+        } while ((isIncludeZero ? (Number < 0) : (Number <= 0)));
+        return Number;
+    }
+    int ReadNumberInRange(int From, int To, string Message = "Enter number: ",bool isIncludedRange = true) {
         int Number = 0;
         do {
-            cout << Message << " [" << From << " to " << To << "]: ";
+            if (isIncludedRange)
+                cout << Message << " [" << From << " to " << To << "]: ";
+            else cout << Message;
             cin >> Number;
             while (cin.fail()) //Validation..
             {
