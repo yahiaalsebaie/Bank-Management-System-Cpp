@@ -228,18 +228,6 @@ namespace MyBankDataLib
 		}
 		return false;
 	}
-	bool FindClientByAccountNumberAndPinCode(const string& AccountNumber, const string& PinCode, stClientData& Client,const vector<stClientData>& vClients)
-	{
-		for (const stClientData& c : vClients)
-		{
-			if (AccountNumber == c.AccountNumber && PinCode == c.PinCode)
-			{
-				Client = c;
-				return true;
-			}
-		}
-		return false;
-	}
 	string ReadClientAccountNumber()
 	{
 		string AccountNumber = "";
@@ -342,19 +330,6 @@ namespace MyBankDataLib
 			if (AccountNumber == c.AccountNumber)
 			{
 				c = changeClientRecord(AccountNumber);
-				return true;
-			}
-		}
-		return false;
-	}
-	bool UpdateClientPinCode(string AccountNumber, vector <stClientData>& vClients,string NewPinCode)
-	{
-		for (stClientData& c : vClients)
-		{
-			if (AccountNumber == c.AccountNumber)
-			{
-				c.PinCode = NewPinCode;
-				SaveClientsDataToFile(ClientsFileName, vClients);
 				return true;
 			}
 		}
@@ -639,33 +614,6 @@ namespace MyBankDataLib
 
 		}
 		else cout << "\nClient with Account Number [" << AccountNumber << "] Not Found!\n";
-	}
-	void DepositClientBalanceByAccountNumberForATM(string AccountNumber, double DepositAmount)
-	{
-		vector <stClientData> vClients = LoadClientsDataFromFile(ClientsFileName);
-		stClientData Client;
-		char Answer = 'n';
-
-		if (FindClientByAccountNumber(AccountNumber, Client, vClients))
-		{
-			double NewBalance = DepositAmount + Client.AccountBalance;
-
-
-			cout << "\nAre you sure you want to perform this transaction ? [Y/N] >> ";
-			cin >> Answer;
-
-			if (toupper(Answer) == 'Y')
-			{
-
-				UpdateBalance(AccountNumber, vClients, NewBalance);
-
-				cout << "Done Successfully, New balance is [" << NewBalance << "]." << endl;
-			}
-			else cout << "\nNo Changes..\n";
-
-		}
-		else cout << "\nClient with Account Number [" << AccountNumber << "] Not Found!\n";
-		SaveClientsDataToFile(ClientsFileName, vClients);
 	}
 
 	void ShowDepositScreen(vector<stClientData>& vClients)

@@ -14,13 +14,6 @@ namespace MyStringLib
 		getline(cin, s1);
 		return s1;
 	}
-	string ReadString(string Message)
-	{
-		string s1;
-		cout << Message;
-		getline(cin, s1);
-		return s1;
-	}
 	char ReadChar()
 	{
 		char Ch1;
