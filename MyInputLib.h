@@ -72,7 +72,7 @@ namespace MyInputLib {
             while (cin.fail()) // Validation
             {
                 cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
                 cout << "Invalid Number, Enter a valid one : ";
                 cin >> ws;
@@ -94,7 +94,7 @@ namespace MyInputLib {
             while (cin.fail()) // Validation
             {
                 cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
                 cout << "Invalid Number, Enter a valid one : ";
                 cin >> Number;
